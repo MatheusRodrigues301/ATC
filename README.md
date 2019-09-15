@@ -8,5 +8,6 @@ Required to run the project:
 - MongoDB:
   https://www.mongodb.com/dr/fastdl.mongodb.org/win32/mongodb-win32-x86_64-2012plus-4.2.0-signed.msi/download
 
-
-To start the project, run "npm start"
+Starting the projetct:
+ - Run npm i in the default path to install dependencies 
+ - Run npm start
