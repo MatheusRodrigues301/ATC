@@ -1,20 +1,18 @@
 {
-  "name": "server-atc",
+  "name": "atc-project",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon"
+    "dev": "nodemon src/server.js"
   },
-  "author": "Daniel Oliveira Chagas, Eduardo Costa Oliveira, Matheus Andrey Rodrigues",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "connect-multiparty": "^2.0.0",
-    "consign": "^0.1.6",
-    "express": "^4.14.0",
-    "mongodb": "^2.2.10",
-    "nodemon": "^1.19.2"
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3",
+    "nodemon": "^1.19.3"
   }
 }
