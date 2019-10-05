@@ -5,7 +5,7 @@ const routes = require('./routes');
 
 const app = express();
 
-mongoose.connect('', {
+mongoose.connect('mongodb+srv://admin:admin@atc-project-urtan.mongodb.net/admin?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
