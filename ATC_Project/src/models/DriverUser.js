@@ -1,8 +1,9 @@
-const mongoose = requires('mongoose');
+const mongoose = require('mongoose');
 
-const DriverUsersSchema = new mongoose.Schema({
+const DriverUserSchema = new mongoose.Schema({
     name: String,
     email: String,
+    password: String,
     birthDate: Date,
     gender: String,
     password: String,
@@ -20,4 +21,4 @@ const DriverUsersSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('DriverUsers', DriverUsersSchema);
+module.exports = mongoose.model('DriverUser', DriverUserSchema);

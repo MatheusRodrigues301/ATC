@@ -1,4 +1,4 @@
-const mongoose = requires('mongoose');
+const mongoose = require('mongoose');
 
 const EstimateSchema = new mongoose.Schema({
     serviceDescription: String,

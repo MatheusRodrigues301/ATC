@@ -1,4 +1,4 @@
-const mongoose = requires('mongoose');
+const mongoose = require('mongoose');
 
 const CargoInfosSchema = new mongoose.Schema({
     cargoType: String,
