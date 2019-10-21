@@ -6,7 +6,11 @@ const CargoInfosSchema = new mongoose.Schema({
     extimatedDate: Date,
     homeAddress: String,
     finalAddress: String,
-    obs: String
+    obs: String,
+    ownerUser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
 module.exports = mongoose.model('CargoInfos', CargoInfosSchema);

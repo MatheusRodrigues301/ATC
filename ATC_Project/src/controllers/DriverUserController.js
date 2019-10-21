@@ -2,8 +2,10 @@
 const DriverUser = require('../models/DriverUser');
 
 module.exports = {
-    async store(req, res) {
-        const { name, email, password, birthDate, gender, password, phoneNumber, documentNumberCpf, documentNumberCNH, selfie, vehicle } = req.body;
+    //Criação de motorista
+    async create(req, res) {
+        const { filename } = req.file
+        const { name, email, password, birthDate, gender, password, phoneNumber, documentNumberCpf, documentNumberCNH, vehicle } = req.body;
         const { plateNumber, model, carBrand, year, color, serviceType } = vehicle;
 
         let driverUser = await User.findOne({ documentNumberCpf });
@@ -19,7 +21,7 @@ module.exports = {
                 phoneNumber,
                 documentNumberCpf,
                 documentNumberCNH,
-                selfie,
+                selfie: filename,
                 vehicle: {
                     plateNumber,
                     model,
@@ -30,7 +32,7 @@ module.exports = {
                 }
             })
         }
-        
+
         return res.json(driverUser);
     }
 };

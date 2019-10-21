@@ -2,8 +2,10 @@
 const User = require('../models/User');
 
 module.exports = {
-    async store(req, res) {
-        const { name, email, password, phoneNumber, documentNumberCpf, gender, birthDate, selfie, cargoInfos } = req.body;
+    async create(req, res) {
+        //Criação de usuário
+        const { filename } = req.file
+        const { name, email, password, phoneNumber, documentNumberCpf, gender, birthDate, cargoInfos } = req.body;
 
         let user = await User.findOne({ documentNumberCpf });
 
@@ -16,7 +18,7 @@ module.exports = {
                 documentNumberCpf,
                 gender,
                 birthDate,
-                selfie,
+                selfie: filename,
                 cargoInfos
             })
         }

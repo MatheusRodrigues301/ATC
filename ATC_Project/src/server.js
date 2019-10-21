@@ -16,7 +16,10 @@ mongoose.connect('mongodb+srv://admin:admin@atc-project-urtan.mongodb.net/dbAtc?
 // req.params = Acessar router params (para edição, delete)
 // req.body = Acessar corpo da requisição (para criação, edição)
 
+const port = 3333;
+console.log('Servidor ON na porta --> http://localhost:' + port);
+
 app.use(express.json());
 app.use(routes);
 
-app.listen(3333);
+app.listen(port);
