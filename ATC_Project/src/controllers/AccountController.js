@@ -10,6 +10,8 @@ module.exports = {
         let user = await User.findOne({ email, password });
 
         if (!user) {
+            await user.populate('CargoInfos').execPopulate();
+
             return res.json(user);
         } else {
             return res.status(401).json({ error: 'User not exists.' });
@@ -23,6 +25,8 @@ module.exports = {
         let user = await DriverUser.findOne({ email, password });
 
         if (!user) {
+            await user.populate('Vehicle').execPopulate();
+
             return res.json(user);
         } else {
             return res.status(401).json({ error: 'User Driver not exists.' });

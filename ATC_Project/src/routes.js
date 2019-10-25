@@ -9,6 +9,7 @@ const CargoInfosController = require('./controllers/CargoInfosController');
 const DashboardController = require('./controllers/DashboardController');
 const DashboardDriverController = require('./controllers/DashboardDriverController');
 const AccountController = require('./controllers/AccountController');
+const VehicleController = require('./controllers/VehicleController');
 
 const routes = express.Router();
 const upload = multer(uploadConfig);
@@ -28,6 +29,9 @@ routes.post('/user', upload.single('selfie'), UserController.create);
 
 //Driver
 routes.post('/driver-user', upload.single('selfie'), DriverUserController.create);
+
+//Vehile
+routes.post('/vehicle', VehicleController.create);
 
 //CargoInfos
 routes.get('/cargo-infos', CargoInfosController.show);

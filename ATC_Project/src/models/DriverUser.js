@@ -6,19 +6,11 @@ const DriverUserSchema = new mongoose.Schema({
     password: String,
     birthDate: Date,
     gender: String,
-    password: String,
     phoneNumber: String,
     documentNumberCpf: String,
     documentNumberCNH: String,
     selfie: String,
-    vehicle: {
-        plateNumber: String,
-        model: String,
-        carBrand: String,
-        year: Number,
-        color: String,
-        serviceType: String
-    }
+    vehicles: []
 })
 
 module.exports = mongoose.model('DriverUser', DriverUserSchema);
