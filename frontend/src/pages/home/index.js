@@ -7,12 +7,15 @@ export default (props) =>{
     return (
         <>
         <div className="container">
-            <img src={logo} />
             <div className="home">
                 <form>
+                    <img src={logo} />
                     <input placeholder="email" type="email" />
                     <input placeholder="senha" type="password" />
-                    <button>Entrar</button>
+                    <div>
+                        <button>Cadastre-se</button>
+                        <button>Entrar</button>      
+                    </div>
                 </form>
             </div>
         </div>
