@@ -8,9 +8,15 @@ const EstimateController = require('./controllers/EstimateController');
 const CargoInfosController = require('./controllers/CargoInfosController');
 const DashboardController = require('./controllers/DashboardController');
 const DashboardDriverController = require('./controllers/DashboardDriverController');
+const AccountController = require('./controllers/AccountController');
+const VehicleController = require('./controllers/VehicleController');
 
 const routes = express.Router();
 const upload = multer(uploadConfig);
+
+//Account
+routes.post('/login-user', AccountController.loginUser);
+routes.post('/login-driver-user', AccountController.loginDriverUser);
 
 //DashboardUser
 routes.get('/dashboard', DashboardController.show);
@@ -23,6 +29,9 @@ routes.post('/user', upload.single('selfie'), UserController.create);
 
 //Driver
 routes.post('/driver-user', upload.single('selfie'), DriverUserController.create);
+
+//Vehile
+routes.post('/vehicle', VehicleController.create);
 
 //CargoInfos
 routes.get('/cargo-infos', CargoInfosController.show);
