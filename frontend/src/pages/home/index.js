@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import api from '../../services/api'
 import './style.css'
+import Grid from '@material-ui/core/Grid';
 
-export default (props) => {
+export default ({ history }) => {
     const [email, password, setEmail, setPassword] = useState('')
 
     const handleSubmit = async (e) => {
@@ -14,10 +15,15 @@ export default (props) => {
         })
             .then(({ data }) => {
                 localStorage.setItem('user', data._id)
+                history.push('/dashboard')
             })
             .catch(error => {
                 console.log("TCL: error", error)
             })
+    }
+
+    const redirectToCreate = () => {
+        history.push('/create-user');
     }
 
     return (
@@ -43,11 +49,16 @@ export default (props) => {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
-
-                <button className="btn" type="submit">Entrar</button>
+                <Grid container spacing={3}>
+                    <Grid item xs={6}>
+                        <button className="btn" onClick={e => redirectToCreate(e)}>Cadastre-se</button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <button className="btn" type="submit">Entrar</button>
+                    </Grid>
+                </Grid>
             </form>
             <br />
-            <button className="btn">Cadastre-se</button>
         </>
     )
 }
