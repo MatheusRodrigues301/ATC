@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+/frontend/node_modules
+/ATC_Project/node_modules
 
 # testing
 /coverage

@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const routes = require('./routes');
 
@@ -19,6 +20,7 @@ mongoose.connect('mongodb+srv://admin:admin@atc-project-urtan.mongodb.net/dbAtc?
 const port = 3333;
 console.log('Servidor ON na porta --> http://localhost:' + port);
 
+app.use(cors());
 app.use(express.json());
 app.use(routes);
 
