@@ -4,7 +4,8 @@ import './style.css'
 import Grid from '@material-ui/core/Grid';
 
 export default ({ history }) => {
-    const [email, password, setEmail, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDafault();

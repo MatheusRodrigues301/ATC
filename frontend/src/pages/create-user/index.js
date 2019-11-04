@@ -3,42 +3,27 @@ import api from '../../services/api'
 import './style.css'
 import Grid from '@material-ui/core/Grid';
 import StepWizard from 'react-step-wizard';
+import Step1 from './step-1'
 
 export default ({ history }) => {
-    const [email, password, setEmail, setPassword] = useState('')
+    let state = {}
 
-    const handleSubmit = async (e) => {
-        e.preventDafault();
-
-        await api.post('/login-driver-user', {
-            email,
-            password
-        })
-            .then(({ data }) => {
-                localStorage.setItem('user', data._id)
-                history.push('/dashboard')
-            })
-            .catch(error => {
-                console.log("TCL: error", error)
-            })
+    const changeState = (key, val) => {
+        state[key] = val;
     }
 
     const redirectToLogin = () => {
-        history.push('/');
+        history.push('/')
     }
 
     return (
         <>
             <StepWizard>
+                <Step1
+                    changeState={(key, val) => changeState(key, val)}
+                    redirectToLogin={() => redirectToLogin()}
+                />
             </StepWizard>
-            <Grid container spacing={3}>
-                <Grid item xs={6}>
-                    <button className="btn" onClick={e => redirectToLogin(e)}>Voltar</button>
-                </Grid>
-                <Grid item xs={6}>
-                    <button className="btn" type="submit">Proximo</button>
-                </Grid>
-            </Grid>
         </>
     )
 }
