@@ -3,40 +3,33 @@ import Grid from '@material-ui/core/Grid';
 import './style.css'
 
 export default (props) => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
 
-    const nextStep = (e) => {
-        e.preventDefault();
-        props.changeState("firstName", firstName)
-        props.changeState("lastName", lastName)
-    }
+    // const saveInfos = (e) => {
+    //     e.preventDefault();
+    //     props.changeState("email", email)
+    // }
 
     return (
         <>
+            <p>
+                Olá, {props.name}
+            </p>
             <form>
-                <label htmlFor="firstName">Nome *</label>
+                <label htmlFor="email">Email *</label>
                 <input
                     type="text"
-                    id="firstName"
-                    placeholder="Digite seu Nome"
-                    value={firstName}
-                    onChange={e => setFirstName(e.target.value)}
-                />
-                <label htmlFor="lastName">Sobrenome *</label>
-                <input
-                    type="text"
-                    id="lastName"
-                    placeholder="Digite seu Sobrenome"
-                    value={lastName}
-                    onChange={e => setLastName(e.target.value)}
+                    id="email"
+                    placeholder="Digite seu Email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
                 />
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
-                        <button className="btn" onClick={() => props.redirectToLogin()}>Voltar</button>
+                        <button className="btn" onClick={() => props.previousStep()}>Voltar</button>
                     </Grid>
                     <Grid item xs={6}>
-                        <button className="btn" onClick={e => nextStep(e)}>Proximo</button>
+                        <button className="btn" onClick={() => props.nextStep()}>Proximo</button>
                     </Grid>
                 </Grid>
             </form>
