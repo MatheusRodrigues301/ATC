@@ -6,47 +6,18 @@ import api from '../services/api'
 import logo from '../assets/logo.png'
 import background from '../assets/background.jpg'
 
-export default function Login({ navigation }){
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-    useEffect(() => {
-        AsyncStorage.getItem('user').then(user => {
-            if(user)
-            navigation.navigate('Home')
-        })
-    },[])
-
-    async function handleSubmit( ){
-        const response = await api.post('login-user', {
-            email,
-            password
-        })
-
-        const { _id } = response.data
-        await AsyncStorage.setItem('user', _id)
-
-        navigation.navigate('Home')
-    }
-
-    function handleCreateUser( ){
-        navigation.navigate('CreateUser')
-    }
+export default function Home( {navigation} ){
 
     return (
-        <ImageBackground source={background} style={{width: '100%', height: '100%'}}>
-            <KeyboardAvoidingView  behavior="padding" style={styles.container}> 
-                <Image source={logo} style={styles.img}/>
-
-                <View style={styles.form}>
+        <View style={styles.form}>
                     <Text style={styles.label}>Seu Email *</Text>
                     <TextInput 
-                        style={styles.input} 
-                        placeholder="Seu e-mail" 
-                        value={email} 
-                        onChangeText={setEmail} 
-                        placeholderTextColor="#FFF" 
-                        keyboardType="email-address" 
+                        style={styles.input}
+                        placeholder="Seu e-mail"
+                        value={email}
+                        onChangeText={setEmail}
+                        placeholderTextColor="#FFF"
+                        keyboardType="email-address"
                         autoCapitalize="none" 
                         autoCorrect={false}
                     />
@@ -66,13 +37,7 @@ export default function Login({ navigation }){
                     <TouchableOpacity style={styles.button} onPress={handleSubmit}> 
                         <Text style={styles.buttonText}>Acessar</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.button} onPress={handleCreateUser}> 
-                        <Text style={styles.buttonText}>Criar Conta</Text>
-                    </TouchableOpacity>
                 </View>
-            </KeyboardAvoidingView>
-        </ImageBackground>
 )}
 
 const styles = StyleSheet.create({
@@ -116,7 +81,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 2,
-        marginTop: 10
     },
 
     buttonText: {
