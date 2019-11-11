@@ -8,6 +8,7 @@ import Step2 from './step2'
 import Step3 from './step3'
 import Step4 from './step4'
 import Step5 from './step5'
+import Finish from './finish'
 import ('./create-user.css')
 
 
@@ -30,6 +31,7 @@ export default function CreateUser({history}){
             <Step3 addDetail={() => addDetail()}/>
             <Step4 addDetail={() => addDetail()}/>
             <Step5 addDetail={() => addDetail()}/>
+            <Finish login={() => returnToLogin()} />
         </StepWizard>
         </>
     )

@@ -14,3 +14,17 @@ p{
     margin-left: 20px;
     font-size: 20px !important;
 }
+
+.finish{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.finish img{
+    width: 70px;
+    height: 70px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
