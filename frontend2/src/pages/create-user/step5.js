@@ -14,7 +14,7 @@ export default function Step4(props){
 
     return (
         <>
-            <p>Vamos criar uma senha.. </p>
+            <p>{`Vamos criar uma senha, ${props.nome()}`}</p>
 
             <form>
                 

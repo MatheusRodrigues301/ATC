@@ -21,17 +21,22 @@ export default function CreateUser({history}){
     
     const addDetail = (key, value) =>{
         personDetail[key] = value;
+        console.log(personDetail)
+    }
+    
+    const personName = () => {
+        return personDetail.nome
     }
 
     return (
         <>
         <StepWizard>
-            <Step1 login={() => returnToLogin()} addDetail={() => addDetail()} />
-            <Step2 addDetail={() => addDetail()}/>
-            <Step3 addDetail={() => addDetail()}/>
-            <Step4 addDetail={() => addDetail()}/>
-            <Step5 addDetail={() => addDetail()}/>
-            <Finish login={() => returnToLogin()} />
+            <Step1 login={() => returnToLogin()} addDetail={(key,value) => addDetail(key,value)} />
+            <Step2 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
+            <Step3 addDetail={(key,value) => addDetail(key,value)}/>
+            <Step4 addDetail={(key,value) => addDetail(key,value)}/>
+            <Step5 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
+            <Finish login={() => returnToLogin()}/>
         </StepWizard>
         </>
     )

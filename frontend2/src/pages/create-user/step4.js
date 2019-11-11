@@ -14,7 +14,7 @@ export default function Step4(props){
 
     return (
         <>
-            <p>Só mais alguns dados? </p>
+            <p>Só mais alguns dados..</p>
 
             <form>
                 
