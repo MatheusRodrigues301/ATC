@@ -99,8 +99,7 @@ export default function CreateUserEnd({ navigation }) {
 
                 <View style={styles.form}>
                     <Text>
-                        Loading
-                        <AnimatedEllipsis />
+                        Tudo pronto :D
                     </Text>
                 </View>
 
