@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Alert, AsyncStorage, ImageBackground, View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import { TextInputMask } from 'react-native-masked-text'
 
 import background from '../../assets/background.jpg'
 import logo from '../../assets/logo.png'
 
-export default function CreateUserStep2({ navigation }) {
+export default function CreateUserStep4({ navigation }) {
     const [firstName, setFirstName] = useState('')
-    const [email, setEmail] = useState('')
-    const [confirmEmail, setConfirmEmail] = useState('')
+    const [documentNumberCpf, setDocumentNumberCpf] = useState('')
+    const [birthDate, setBirthDate] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
 
     useEffect(() => {
         AsyncStorage.getItem('firstName').then(storagedFirstName => {
@@ -15,46 +17,44 @@ export default function CreateUserStep2({ navigation }) {
                 setFirstName(storagedFirstName)
         })
 
-        AsyncStorage.getItem('email').then(storagedEmail => {
-            if (storagedEmail)
-                setEmail(storagedEmail)
+        AsyncStorage.getItem('documentNumberCpf').then(storagedDocumentNumberCpf => {
+            if (storagedDocumentNumberCpf)
+                setDocumentNumberCpf(storagedDocumentNumberCpf)
+        })
+
+        AsyncStorage.getItem('birthDate').then(storagedBirthDate => {
+            if (storagedBirthDate)
+                setBirthDate(storagedBirthDate)
+        })
+
+        AsyncStorage.getItem('phoneNumber').then(storagedPhoneNumber => {
+            if (storagedPhoneNumber)
+                setPhoneNumber(storagedPhoneNumber)
         })
     }, [])
 
     async function nextStep() {
         if (isValidForm()) {
-            await AsyncStorage.setItem('email', email)
-            await AsyncStorage.setItem('confirmEmail', confirmEmail)
+            await AsyncStorage.setItem('documentNumberCpf', documentNumberCpf)
+            await AsyncStorage.setItem('birthDate', birthDate)
+            await AsyncStorage.setItem('phoneNumber', phoneNumber)
 
-            navigation.navigate('CreateUserStep3');
+            navigation.navigate('CreateUserStep5');
         } else {
             Alert.alert('Por favor, preencha todos os dados corretamente!')
         }
     }
 
-    function isValid(item) {
-        switch (item) {
-            case 'email':
-                return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email);
-                break;
-            case 'confirmEmail':
-                return email === confirmEmail;
-                break
-            default:
-                return false;
-                break;
-        }
-    }
-
     function isValidForm() {
         return (
-            (email !== "" && isValid('email')) &&
-            (confirmEmail !== "" && isValid('confirmEmail'))
+            documentNumberCpf !== "" &&
+            birthDate !== "" &&
+            phoneNumber !== ""
         )
     }
 
     function handleBack() {
-        navigation.navigate('CreateUser')
+        navigation.navigate('CreateUserStep3')
     }
 
     return (
@@ -63,43 +63,64 @@ export default function CreateUserStep2({ navigation }) {
                 <Image source={logo} style={styles.img} />
 
                 <View style={styles.form}>
-                    <Text style={styles.information}>Qual seu email, {firstName}</Text>
+                    <Text style={styles.information}>Só mais algumas informações...</Text>
 
                     <Text
-                        style={[styles.label, (email !== "" && !isValid('email') ? styles.labelError : '')]}
+                        style={[styles.label, (documentNumberCpf !== "" && documentNumberCpf.length < 14 ? styles.labelError : '')]}
                     >
-                        Seu e-mail *
+                        Seu CPF *
                     </Text>
-                    <TextInput
-                        style={[styles.input, (email !== "" && !isValid('email') ? styles.inputError : '')]}
-                        placeholder="Seu e-mail"
-                        value={email}
-                        onChangeText={setEmail}
-                        autoCapitalize="words"
-                        autoCorrect={false}
+                    <TextInputMask
+                        type={'cpf'}
+                        value={documentNumberCpf}
+                        onChangeText={setDocumentNumberCpf}
+                        style={styles.input}
                     />
-                    {email !== "" && !isValid('email') && (
+                    {documentNumberCpf !== "" && documentNumberCpf.length < 14 && (
                         <Text style={styles.errorMessage}>
-                            Este campo deve ser um e-mail
+                            CPF Inválido
                         </Text>
                     )}
 
                     <Text
-                        style={[styles.label, (confirmEmail !== "" && !isValid('confirmEmail') ? styles.labelError : '')]}
+                        style={[styles.label, (birthDate !== "" && birthDate.length < 10 ? styles.labelError : '')]}
                     >
-                        Confirme o e-mail *
+                        Seu Aniversário *
                     </Text>
-                    <TextInput
-                        style={[styles.input, (confirmEmail !== "" && !isValid('confirmEmail') ? styles.inputError : '')]}
-                        placeholder="Confirme seu e-mail"
-                        value={confirmEmail}
-                        onChangeText={setConfirmEmail}
-                        autoCapitalize="words"
-                        autoCorrect={false}
+                    <TextInputMask
+                        type={'datetime'}
+                        options={{
+                            format: 'DD/MM/YYYY'
+                        }}
+                        value={birthDate}
+                        onChangeText={setBirthDate}
+                        style={styles.input}
                     />
-                    {confirmEmail !== "" && !isValid('confirmEmail') && (
+                    {birthDate !== "" && birthDate.length < 10 && (
                         <Text style={styles.errorMessage}>
-                            Os e-mails não coincidem
+                            Data Inválido
+                        </Text>
+                    )}
+
+                    <Text
+                        style={[styles.label, (phoneNumber !== "" && phoneNumber.length < 15 ? styles.labelError : '')]}
+                    >
+                        Seu Celular *
+                    </Text>
+                    <TextInputMask
+                        type={'cel-phone'}
+                        options={{
+                            maskType: 'BRL',
+                            withDDD: true,
+                            dddMask: '(99) '
+                        }}
+                        value={phoneNumber}
+                        onChangeText={setPhoneNumber}
+                        style={styles.input}
+                    />
+                    {phoneNumber !== "" && phoneNumber.length < 15 && (
+                        <Text style={styles.errorMessage}>
+                            Número inválido
                         </Text>
                     )}
 

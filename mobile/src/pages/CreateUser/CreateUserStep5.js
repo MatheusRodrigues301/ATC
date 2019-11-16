@@ -4,29 +4,19 @@ import { Alert, AsyncStorage, ImageBackground, View, Image, KeyboardAvoidingView
 import background from '../../assets/background.jpg'
 import logo from '../../assets/logo.png'
 
-export default function CreateUserStep2({ navigation }) {
-    const [firstName, setFirstName] = useState('')
-    const [email, setEmail] = useState('')
-    const [confirmEmail, setConfirmEmail] = useState('')
+export default function CreateUserStep5({ navigation }) {
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
 
     useEffect(() => {
-        AsyncStorage.getItem('firstName').then(storagedFirstName => {
-            if (storagedFirstName)
-                setFirstName(storagedFirstName)
-        })
 
-        AsyncStorage.getItem('email').then(storagedEmail => {
-            if (storagedEmail)
-                setEmail(storagedEmail)
-        })
     }, [])
 
     async function nextStep() {
         if (isValidForm()) {
-            await AsyncStorage.setItem('email', email)
-            await AsyncStorage.setItem('confirmEmail', confirmEmail)
+            await AsyncStorage.setItem('senha', password)
 
-            navigation.navigate('CreateUserStep3');
+            navigation.navigate('CreateUserEnds');
         } else {
             Alert.alert('Por favor, preencha todos os dados corretamente!')
         }
@@ -34,12 +24,12 @@ export default function CreateUserStep2({ navigation }) {
 
     function isValid(item) {
         switch (item) {
-            case 'email':
-                return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email);
+            case 'password':
+                return password.length >= 6;
                 break;
-            case 'confirmEmail':
-                return email === confirmEmail;
-                break
+            case 'confirmPassword':
+                return confirmPassword === password;
+                break;
             default:
                 return false;
                 break;
@@ -48,13 +38,13 @@ export default function CreateUserStep2({ navigation }) {
 
     function isValidForm() {
         return (
-            (email !== "" && isValid('email')) &&
-            (confirmEmail !== "" && isValid('confirmEmail'))
+            isValid('password') &&
+            isValid('confirmPassword')
         )
     }
 
     function handleBack() {
-        navigation.navigate('CreateUser')
+        navigation.navigate('CreateUserStep5')
     }
 
     return (
@@ -63,43 +53,47 @@ export default function CreateUserStep2({ navigation }) {
                 <Image source={logo} style={styles.img} />
 
                 <View style={styles.form}>
-                    <Text style={styles.information}>Qual seu email, {firstName}</Text>
+                    <Text style={styles.information}>Vamos criar uma senha</Text>
 
                     <Text
-                        style={[styles.label, (email !== "" && !isValid('email') ? styles.labelError : '')]}
+                        style={[styles.label, (password !== "" && !isValid('password') ? styles.labelError : '')]}
                     >
-                        Seu e-mail *
+                        Sua senha *
                     </Text>
                     <TextInput
-                        style={[styles.input, (email !== "" && !isValid('email') ? styles.inputError : '')]}
-                        placeholder="Seu e-mail"
-                        value={email}
-                        onChangeText={setEmail}
-                        autoCapitalize="words"
+                        style={[styles.input, (password !== "" && !isValid('password') ? styles.inputError : '')]}
+                        placeholder="Sua senha"
+                        value={password}
+                        onChangeText={setPassword}
+                        autoCapitalize="none"
+                        autoCompleteType="password"
+                        secureTextEntry={true}
                         autoCorrect={false}
                     />
-                    {email !== "" && !isValid('email') && (
+                    {password !== "" && !isValid('password') && (
                         <Text style={styles.errorMessage}>
-                            Este campo deve ser um e-mail
+                            Senha deve ter no minimo de 6 caracteres.
                         </Text>
                     )}
 
                     <Text
-                        style={[styles.label, (confirmEmail !== "" && !isValid('confirmEmail') ? styles.labelError : '')]}
+                        style={[styles.label, (confirmPassword !== "" && !isValid('confirmPassword') ? styles.labelError : '')]}
                     >
-                        Confirme o e-mail *
+                        Confirme sua senha *
                     </Text>
                     <TextInput
-                        style={[styles.input, (confirmEmail !== "" && !isValid('confirmEmail') ? styles.inputError : '')]}
-                        placeholder="Confirme seu e-mail"
-                        value={confirmEmail}
-                        onChangeText={setConfirmEmail}
-                        autoCapitalize="words"
+                        style={[styles.input, (confirmPassword !== "" && !isValid('confirmPassword') ? styles.inputError : '')]}
+                        placeholder="Sua senha"
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword}
+                        autoCapitalize="none"
+                        autoCompleteType="password"
+                        secureTextEntry={true}
                         autoCorrect={false}
                     />
-                    {confirmEmail !== "" && !isValid('confirmEmail') && (
+                    {confirmPassword !== "" && !isValid('confirmPassword') && (
                         <Text style={styles.errorMessage}>
-                            Os e-mails não coincidem
+                            As senhas não coincidem
                         </Text>
                     )}
 

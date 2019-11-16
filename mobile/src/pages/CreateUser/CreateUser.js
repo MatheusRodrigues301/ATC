@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { AsyncStorage, ImageBackground, View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
-
-import api from '../../services/api'
+import { Alert, AsyncStorage, ImageBackground, View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 
 import background from '../../assets/background.jpg'
+import logo from '../../assets/logo.png'
 
 export default function CreateUser({ navigation }) {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
 
     useEffect(() => {
+        AsyncStorage.getItem('firstName').then(storagedFirstName => {
+            if (storagedFirstName)
+                setFirstName(storagedFirstName)
+        })
 
+        AsyncStorage.getItem('lastName').then(storagedLastName => {
+            if (storagedLastName)
+                setLastName(storagedLastName)
+        })
     }, [])
 
     async function nextStep() {
@@ -19,20 +26,23 @@ export default function CreateUser({ navigation }) {
             await AsyncStorage.setItem('lastName', lastName)
 
             navigation.navigate('CreateUserStep2')
+        } else {
+            Alert.alert('Por favor, preencha todos os dados corretamente!')
         }
     }
 
-    function handleBack() {
+    async function handleBack() {
+        AsyncStorage.clear();
         navigation.navigate('Login')
     }
 
     function isValid(item) {
         switch (item) {
             case 'firstName':
-                return /^[A-Za-z]+$/.test(firstName);
+                return /^[a-zA-Z\s]*$/.test(firstName);
                 break;
             case 'lastName':
-                return /^[A-Za-zx]+$/.test(lastName);
+                return /^[a-zA-Z\s]*$/.test(lastName);
                 break
             default:
                 return false;
@@ -42,38 +52,57 @@ export default function CreateUser({ navigation }) {
 
     function isValidForm() {
         return (
-            isValid('firstName') &&
-            isValid('lastName')
+            (firstName !== "" && isValid('firstName')) &&
+            (lastName !== "" && isValid('lastName'))
         )
     }
 
     return (
         <ImageBackground source={background} style={{ width: '100%', height: '100%' }}>
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                <Text style={styles.information}>Olá, vamos começar seu cadastro!</Text>
+                <Image source={logo} style={styles.img} />
+
                 <View style={styles.form}>
-                    <Text style={styles.label}>Seu Nome *</Text>
+                    <Text style={styles.information}>Carto, vamos começar seu cadastro</Text>
+
+                    <Text
+                        style={[styles.label, (firstName !== "" && !isValid('firstName') ? styles.labelError : '')]}
+                    >
+                        Seu Nome *
+                    </Text>
                     <TextInput
-                        style={styles.input}
+                        style={[styles.input, (firstName !== "" && !isValid('firstName') ? styles.inputError : '')]}
                         placeholder="Seu nome"
                         value={firstName}
                         onChangeText={setFirstName}
-                        placeholderTextColor="#FFF"
                         autoCapitalize="words"
                         autoCorrect={false}
                     />
+                    {firstName !== "" && !isValid('firstName') && (
+                        <Text style={styles.errorMessage}>
+                            Neste campo é permitido somente letras
+                        </Text>
+                    )}
 
-                    <Text style={styles.label}>Seu Sobrenome *</Text>
+                    <Text
+                        style={[styles.label, (lastName !== "" && !isValid('lastName') ? styles.labelError : '')]}
+                    >
+                        Seu Sobrenome *
+                    </Text>
                     <TextInput
-                        style={styles.input}
+                        style={[styles.input, (lastName !== "" && !isValid('lastName') ? styles.inputError : '')]}
                         placeholder="Seu sobrenome"
                         value={lastName}
                         secureTextEntry={true}
                         onChangeText={setLastName}
-                        placeholderTextColor="#FFF"
                         autoCapitalize="words"
                         autoCorrect={false}
                     />
+                    {lastName !== "" && !isValid('lastName') && (
+                        <Text style={styles.errorMessage}>
+                            Neste campo é permitido somente letras
+                        </Text>
+                    )}
 
                     <TouchableOpacity style={styles.button} onPress={nextStep}>
                         <Text style={styles.buttonText}>Próximo</Text>
@@ -97,44 +126,61 @@ const styles = StyleSheet.create({
 
     form: {
         alignSelf: 'stretch',
-        paddingHorizontal: 30,
-        marginTop: 30
+        paddingHorizontal: 20,
+        margin: 20,
+        borderRadius: 10,
+        backgroundColor: '#FFF'
     },
 
-    error: {
-        marginTop: 0,
+    img: {
+        width: 140,
+        height: 100
+    },
+
+    errorMessage: {
+        marginTop: -20,
+        marginBottom: 20,
         fontSize: 12,
         fontWeight: 'bold',
         color: '#f05a5b',
     },
 
-    information: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#000',
-        marginBottom: 8
-    },
-
-    label: {
-        fontWeight: 'bold',
-        color: '#FFF',
-        marginBottom: 8
-    },
-
-    input: {
+    inputError: {
         borderWidth: 1,
-        borderColor: '#FFF',
+        borderColor: '#f05a5b',
         paddingHorizontal: 20,
         fontSize: 16,
-        color: '#FFF',
+        color: '#f05a5b',
         height: 44,
         marginBottom: 20,
         borderRadius: 2
     },
 
-    img: {
-        width: 140,
-        height: 120
+    labelError: {
+        fontWeight: 'bold',
+        color: '#f05a5b'
+    },
+
+    information: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 8,
+        textAlign: 'center'
+    },
+
+    label: {
+        fontWeight: 'bold',
+        marginTop: 8
+    },
+
+    input: {
+        borderWidth: 1,
+        paddingHorizontal: 20,
+        fontSize: 16,
+        height: 44,
+        marginBottom: 20,
+        borderRadius: 2
     },
 
     button: {
@@ -143,7 +189,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 2,
-        marginTop: 10
+        marginBottom: 10
     },
 
     buttonText: {

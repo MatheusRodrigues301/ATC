@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Alert, AsyncStorage, ImageBackground, View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import AnimatedEllipsis from 'react-native-animated-ellipsis';
 
 import background from '../../assets/background.jpg'
 import logo from '../../assets/logo.png'
 
-export default function CreateUserStep2({ navigation }) {
+export default function CreateUserEnd({ navigation }) {
     const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
-    const [confirmEmail, setConfirmEmail] = useState('')
+    const [gender, setGender] = useState('')
+    const [documentNumberCpf, setDocumentNumberCpf] = useState('')
+    const [birthDate, setBirthDate] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [password, setPassword] = useState('')
 
     useEffect(() => {
         AsyncStorage.getItem('firstName').then(storagedFirstName => {
@@ -15,18 +21,47 @@ export default function CreateUserStep2({ navigation }) {
                 setFirstName(storagedFirstName)
         })
 
+        AsyncStorage.getItem('lastName').then(storagedLastName => {
+            if (storagedLastName)
+                setLastName(storagedLastName)
+        })
+
         AsyncStorage.getItem('email').then(storagedEmail => {
             if (storagedEmail)
                 setEmail(storagedEmail)
+        })
+
+        AsyncStorage.getItem('gender').then(storagedGender => {
+            if (storagedGender)
+                setGender(storagedGender)
+        })
+
+        AsyncStorage.getItem('documentNumberCpf').then(storagedDocumentNumberCpf => {
+            if (storagedDocumentNumberCpf)
+                setDocumentNumberCpf(storagedDocumentNumberCpf)
+        })
+
+        AsyncStorage.getItem('birthDate').then(storagedBirthDate => {
+            if (storagedBirthDate)
+                setBirthDate(storagedBirthDate)
+        })
+
+        AsyncStorage.getItem('phoneNumber').then(storagedPhoneNumber => {
+            if (storagedPhoneNumber)
+                setPhoneNumber(storagedPhoneNumber)
+        })
+
+        AsyncStorage.getItem('password').then(storagedPassword => {
+            if (storagedPassword)
+                setPassword(storagedPassword)
         })
     }, [])
 
     async function nextStep() {
         if (isValidForm()) {
-            await AsyncStorage.setItem('email', email)
-            await AsyncStorage.setItem('confirmEmail', confirmEmail)
+            // await AsyncStorage.setItem('senha', documentNumberCpf)
 
-            navigation.navigate('CreateUserStep3');
+            navigation.navigate('Login');
         } else {
             Alert.alert('Por favor, preencha todos os dados corretamente!')
         }
@@ -34,12 +69,12 @@ export default function CreateUserStep2({ navigation }) {
 
     function isValid(item) {
         switch (item) {
-            case 'email':
-                return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email);
+            case 'password':
+                return password.length >= 6;
                 break;
-            case 'confirmEmail':
-                return email === confirmEmail;
-                break
+            case 'confirmPassword':
+                return confirmPassword === password;
+                break;
             default:
                 return false;
                 break;
@@ -48,13 +83,13 @@ export default function CreateUserStep2({ navigation }) {
 
     function isValidForm() {
         return (
-            (email !== "" && isValid('email')) &&
-            (confirmEmail !== "" && isValid('confirmEmail'))
+            isValid('password') &&
+            isValid('confirmPassword')
         )
     }
 
     function handleBack() {
-        navigation.navigate('CreateUser')
+        navigation.navigate('CreateUserStep5')
     }
 
     return (
@@ -63,54 +98,12 @@ export default function CreateUserStep2({ navigation }) {
                 <Image source={logo} style={styles.img} />
 
                 <View style={styles.form}>
-                    <Text style={styles.information}>Qual seu email, {firstName}</Text>
-
-                    <Text
-                        style={[styles.label, (email !== "" && !isValid('email') ? styles.labelError : '')]}
-                    >
-                        Seu e-mail *
+                    <Text>
+                        Loading
+                        <AnimatedEllipsis />
                     </Text>
-                    <TextInput
-                        style={[styles.input, (email !== "" && !isValid('email') ? styles.inputError : '')]}
-                        placeholder="Seu e-mail"
-                        value={email}
-                        onChangeText={setEmail}
-                        autoCapitalize="words"
-                        autoCorrect={false}
-                    />
-                    {email !== "" && !isValid('email') && (
-                        <Text style={styles.errorMessage}>
-                            Este campo deve ser um e-mail
-                        </Text>
-                    )}
-
-                    <Text
-                        style={[styles.label, (confirmEmail !== "" && !isValid('confirmEmail') ? styles.labelError : '')]}
-                    >
-                        Confirme o e-mail *
-                    </Text>
-                    <TextInput
-                        style={[styles.input, (confirmEmail !== "" && !isValid('confirmEmail') ? styles.inputError : '')]}
-                        placeholder="Confirme seu e-mail"
-                        value={confirmEmail}
-                        onChangeText={setConfirmEmail}
-                        autoCapitalize="words"
-                        autoCorrect={false}
-                    />
-                    {confirmEmail !== "" && !isValid('confirmEmail') && (
-                        <Text style={styles.errorMessage}>
-                            Os e-mails não coincidem
-                        </Text>
-                    )}
-
-                    <TouchableOpacity style={styles.button} onPress={nextStep}>
-                        <Text style={styles.buttonText}>Próximo</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.button} onPress={handleBack}>
-                        <Text style={styles.buttonText}>Voltar</Text>
-                    </TouchableOpacity>
                 </View>
+
             </KeyboardAvoidingView>
         </ImageBackground >
     )
