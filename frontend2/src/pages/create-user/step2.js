@@ -1,16 +1,29 @@
 import React from 'react'
+import validator from '../../util/validators'
 
 export default function Step2(props){
     const [email,setEmail] = React.useState('')    
 
+    const valideForm = () =>{
+        if(validator("email",email))
+            return true;
+        else
+            return false
+    }
+
     const saveValues = (e) => {
-        e.preventDefault()
-        props.addDetail("email", email)
+        if(valideForm()){
+            e.preventDefault()
+            props.addDetail("email", email)
+            return true;
+        }
+        else
+            return false;
     }
     const next = (e) =>
     {
-        saveValues(e)
-        props.nextStep()
+        if(saveValues(e))
+            props.nextStep()
     }
 
     const back = () =>
@@ -24,7 +37,7 @@ export default function Step2(props){
 
             <form>
                 
-                <input placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input className={email !== '' && !validator('email', email) && "error"} placeholder="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <div className="btn-area">
                     <button className="btn" type="button" onClick={() => back()}>Anterior</button>
                     <button className="btn" type="button" onClick={(e) => next(e)}>Proximo</button>

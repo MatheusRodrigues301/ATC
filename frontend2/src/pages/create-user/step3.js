@@ -10,8 +10,10 @@ export default function Step3(props){
 
     const next = (e) =>
     {
-        saveValues(e)
-        props.nextStep()
+        if(genero !== ''){
+            saveValues(e)
+            props.nextStep()
+        }
     }
 
     const back = () =>
@@ -23,7 +25,7 @@ export default function Step3(props){
     <>
             <p>Você se considera o que? </p>
             <form>    
-                <div className="radio-group">
+                <div className="radio-group error">
                     <input  type="radio" value="masculino" name="genero" onChange={(e) => setGenero(e.target.value)} />
                     <label>Masculino</label>
                 </div>
