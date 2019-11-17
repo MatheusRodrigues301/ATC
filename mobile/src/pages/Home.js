@@ -1,33 +1,42 @@
 import React, { useState, useEffect } from 'react'
-import { AsyncStorage, ImageBackground, View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import { AsyncStorage, SafeAreaView, View, TouchableOpacity, Image, Text, TextInput, StyleSheet } from 'react-native'
 
 import logo from '../assets/logo.png'
-import background from '../assets/background.jpg'
 
-export default function Login({ navigation }) {
+export default function Home({ navigation }) {
 
     useEffect(() => {
 
     }, [])
 
-    function handleCreateUser() {
-        AsyncStorage.clear();
-        navigation.navigate('Login')
+    function handleCargo() {
+        navigation.navigate('CreateCargo')
+    }
+
+    function handleList() {
+
     }
 
     return (
-        <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Image source={logo} style={styles.img} />
 
-        </KeyboardAvoidingView>
+            <View style={styles.form}>
+                <Text style={styles.information}>Bem vindo!</Text>
+                <TouchableOpacity style={styles.button} onPress={handleCargo}>
+                    <Text style={styles.buttonText}>Cadastrar nova carga</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleList}>
+                    <Text style={styles.buttonText}>Visualizar meus orçamentos</Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex: 1
     },
 
     form: {
@@ -61,8 +70,10 @@ const styles = StyleSheet.create({
     },
 
     img: {
-        width: 140,
-        height: 100
+        height: 60,
+        resizeMode: 'contain',
+        alignSelf: 'center',
+        marginTop: 30
     },
 
     button: {

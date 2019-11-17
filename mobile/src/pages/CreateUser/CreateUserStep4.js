@@ -45,6 +45,17 @@ export default function CreateUserStep4({ navigation }) {
         }
     }
 
+    function isValid(item) {
+        switch (item) {
+            case 'birthDate':
+                return /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/.test(birthDate)
+                break;
+            default:
+                return false;
+                break;
+        }
+    }
+
     function isValidForm() {
         return (
             documentNumberCpf !== "" &&
@@ -74,7 +85,7 @@ export default function CreateUserStep4({ navigation }) {
                         type={'cpf'}
                         value={documentNumberCpf}
                         onChangeText={setDocumentNumberCpf}
-                        style={styles.input}
+                        style={[styles.input, (documentNumberCpf !== "" && documentNumberCpf.length < 14 ? styles.inputError : '')]}
                     />
                     {documentNumberCpf !== "" && documentNumberCpf.length < 14 && (
                         <Text style={styles.errorMessage}>
@@ -83,7 +94,7 @@ export default function CreateUserStep4({ navigation }) {
                     )}
 
                     <Text
-                        style={[styles.label, (birthDate !== "" && birthDate.length < 10 ? styles.labelError : '')]}
+                        style={[styles.label, (birthDate !== "" && !isValid('birthDate') ? styles.labelError : '')]}
                     >
                         Seu Aniversário *
                     </Text>
@@ -94,11 +105,11 @@ export default function CreateUserStep4({ navigation }) {
                         }}
                         value={birthDate}
                         onChangeText={setBirthDate}
-                        style={styles.input}
+                        style={[styles.input, (birthDate !== "" && !isValid('birthDate') ? styles.inputError : '')]}
                     />
-                    {birthDate !== "" && birthDate.length < 10 && (
+                    {birthDate !== "" && !isValid('birthDate') && (
                         <Text style={styles.errorMessage}>
-                            Data Inválido
+                            Data Inválida
                         </Text>
                     )}
 
@@ -116,7 +127,7 @@ export default function CreateUserStep4({ navigation }) {
                         }}
                         value={phoneNumber}
                         onChangeText={setPhoneNumber}
-                        style={styles.input}
+                        style={[styles.input, (phoneNumber !== "" && phoneNumber.length < 15 ? styles.inputError : '')]}
                     />
                     {phoneNumber !== "" && phoneNumber.length < 15 && (
                         <Text style={styles.errorMessage}>

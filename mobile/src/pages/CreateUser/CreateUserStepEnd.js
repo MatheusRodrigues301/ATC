@@ -79,6 +79,8 @@ export default function CreateUserStepEnd({ navigation }) {
             }).catch(error => {
                 console.log("TCL: handleSubmit -> error", error)
             })
+
+        navigation.navigate('Login')
     }
 
     return (
