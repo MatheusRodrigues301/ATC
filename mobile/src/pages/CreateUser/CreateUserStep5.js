@@ -14,7 +14,7 @@ export default function CreateUserStep5({ navigation }) {
 
     async function nextStep() {
         if (isValidForm()) {
-            await AsyncStorage.setItem('senha', password)
+            await AsyncStorage.setItem('password', password)
 
             navigation.navigate('CreateUserStepEnd');
         } else {

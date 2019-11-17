@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Alert, AsyncStorage, ImageBackground, View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import api from '../../services/api'
+
 import background from '../../assets/background.jpg'
 import logo from '../../assets/logo.png'
 import loadingImg from '../../assets/loading.gif'
@@ -15,7 +17,7 @@ export default function CreateUserStepEnd({ navigation }) {
     const [birthDate, setBirthDate] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [password, setPassword] = useState('')
-    const [loading, setLoading] = useState('loading:false')
+    const [loading, setLoading] = useState('loading:true')
 
     useEffect(() => {
         AsyncStorage.getItem('firstName').then(storagedFirstName => {
@@ -59,39 +61,25 @@ export default function CreateUserStepEnd({ navigation }) {
         })
     }, [])
 
-    async function nextStep() {
-        if (isValidForm()) {
-            // await AsyncStorage.setItem('senha', documentNumberCpf)
-
-            navigation.navigate('Login');
-        } else {
-            Alert.alert('Por favor, preencha todos os dados corretamente!')
+    async function handleSubmit() {
+        let model = {
+            name: firstName + " " + lastName,
+            email,
+            password,
+            phoneNumber,
+            documentNumberCpf,
+            gender,
+            birthDate,
+            cargoInfos: ""
         }
-    }
+        console.log("TCL: handleSubmit -> model", model)
 
-    function isValid(item) {
-        switch (item) {
-            case 'password':
-                return password.length >= 6;
-                break;
-            case 'confirmPassword':
-                return confirmPassword === password;
-                break;
-            default:
-                return false;
-                break;
-        }
-    }
-
-    function isValidForm() {
-        return (
-            isValid('password') &&
-            isValid('confirmPassword')
-        )
-    }
-
-    function handleBack() {
-        navigation.navigate('Login')
+        await api.post('/user', model)
+            .then(({ resp }) => {
+                console.log("TCL: handleSubmit -> resp", resp)
+            }).catch(error => {
+                console.log("TCL: handleSubmit -> error", error)
+            })
     }
 
     return (
@@ -108,7 +96,7 @@ export default function CreateUserStepEnd({ navigation }) {
                             <Text style={styles.information}>Tudo Pronto :)</Text>
                             <Icon name="check-circle" style={styles.checkCircule} size={50} color="#24de10" />
 
-                            <TouchableOpacity style={styles.button} onPress={handleBack}>
+                            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                                 <Text style={styles.buttonText}>Finalizar</Text>
                             </TouchableOpacity>
                         </View>
