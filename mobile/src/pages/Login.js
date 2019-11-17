@@ -15,16 +15,18 @@ export default function Login({ navigation }) {
             if (user)
                 navigation.navigate('Home')
         })
+
+        AsyncStorage.clear();
     }, [])
 
     async function handleSubmit() {
-        const response = await api.post('login-user', {
-            email,
-            password
-        })
+        // const response = await api.post('login-user', {
+        //     email,
+        //     password
+        // })
 
-        const { _id } = response.data
-        await AsyncStorage.setItem('user', _id)
+        // const { _id } = response.data
+        // await AsyncStorage.setItem('user', _id)
 
         navigation.navigate('Home')
     }

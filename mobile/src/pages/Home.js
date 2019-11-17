@@ -1,43 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { AsyncStorage, ImageBackground, View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 
-import api from '../services/api'
-
 import logo from '../assets/logo.png'
 import background from '../assets/background.jpg'
 
-export default function Home({ navigation }) {
+export default function Login({ navigation }) {
+
+    useEffect(() => {
+
+    }, [])
+
+    function handleCreateUser() {
+        AsyncStorage.clear();
+        navigation.navigate('Login')
+    }
 
     return (
-        <View style={styles.form}>
-            <Text style={styles.label}>Seu Email *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Seu e-mail"
-                value={email}
-                onChangeText={setEmail}
-                placeholderTextColor="#FFF"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-            />
+        <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            <Image source={logo} style={styles.img} />
 
-            <Text style={styles.label}>Sua Senha *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Sua senha"
-                value={password}
-                secureTextEntry={true}
-                onChangeText={setPassword}
-                placeholderTextColor="#FFF"
-                autoCapitalize="none"
-                autoCorrect={false}
-            />
-
-            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>Acessar</Text>
-            </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
     )
 }
 
@@ -50,22 +32,29 @@ const styles = StyleSheet.create({
 
     form: {
         alignSelf: 'stretch',
-        paddingHorizontal: 30,
-        marginTop: 30
+        paddingHorizontal: 20,
+        margin: 20,
+        borderRadius: 10,
+        backgroundColor: '#FFF'
+    },
+
+    information: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginTop: 10,
+        marginBottom: 8,
+        textAlign: 'center'
     },
 
     label: {
         fontWeight: 'bold',
-        color: '#FFF',
-        marginBottom: 8
+        marginTop: 8
     },
 
     input: {
         borderWidth: 1,
-        borderColor: '#FFF',
         paddingHorizontal: 20,
         fontSize: 16,
-        color: '#FFF',
         height: 44,
         marginBottom: 20,
         borderRadius: 2
@@ -73,7 +62,7 @@ const styles = StyleSheet.create({
 
     img: {
         width: 140,
-        height: 120
+        height: 100
     },
 
     button: {
@@ -82,6 +71,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 2,
+        marginBottom: 10
     },
 
     buttonText: {

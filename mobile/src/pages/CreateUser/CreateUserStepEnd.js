@@ -72,7 +72,6 @@ export default function CreateUserStepEnd({ navigation }) {
             birthDate,
             cargoInfos: ""
         }
-        console.log("TCL: handleSubmit -> model", model)
 
         await api.post('/user', model)
             .then(({ resp }) => {
