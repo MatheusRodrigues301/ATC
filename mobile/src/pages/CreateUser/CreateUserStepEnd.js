@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Alert, AsyncStorage, ImageBackground, View, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
-import AnimatedEllipsis from 'react-native-animated-ellipsis';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import background from '../../assets/background.jpg'
 import logo from '../../assets/logo.png'
+import loadingImg from '../../assets/loading.gif'
 
-export default function CreateUserEnd({ navigation }) {
+export default function CreateUserStepEnd({ navigation }) {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
@@ -14,6 +15,7 @@ export default function CreateUserEnd({ navigation }) {
     const [birthDate, setBirthDate] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState('loading:false')
 
     useEffect(() => {
         AsyncStorage.getItem('firstName').then(storagedFirstName => {
@@ -89,7 +91,7 @@ export default function CreateUserEnd({ navigation }) {
     }
 
     function handleBack() {
-        navigation.navigate('CreateUserStep5')
+        navigation.navigate('Login')
     }
 
     return (
@@ -97,12 +99,20 @@ export default function CreateUserEnd({ navigation }) {
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <Image source={logo} style={styles.img} />
 
-                <View style={styles.form}>
-                    <Text>
-                        Tudo pronto :D
-                    </Text>
-                </View>
+                {loading === true ? (
+                    <View style={styles.loadingForm}>
+                        <Image source={loadingImg} style={styles.loading} />
+                    </View>
+                ) : (
+                        <View style={styles.form}>
+                            <Text style={styles.information}>Tudo Pronto :)</Text>
+                            <Icon name="check-circle" style={styles.checkCircule} size={50} color="#24de10" />
 
+                            <TouchableOpacity style={styles.button} onPress={handleBack}>
+                                <Text style={styles.buttonText}>Finalizar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
             </KeyboardAvoidingView>
         </ImageBackground >
     )
@@ -123,9 +133,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF'
     },
 
+    loadingForm: {
+        alignSelf: 'stretch',
+        paddingHorizontal: 20,
+        margin: 20,
+        borderRadius: 10,
+        backgroundColor: '#f2f2f2'
+    },
+
+    checkCircule: {
+        textAlign: 'center'
+    },
+
     img: {
         width: 140,
         height: 100
+    },
+
+    loading: {
+        width: '100%',
+        height: 300
     },
 
     errorMessage: {
@@ -136,42 +163,11 @@ const styles = StyleSheet.create({
         color: '#f05a5b',
     },
 
-    inputError: {
-        borderWidth: 1,
-        borderColor: '#f05a5b',
-        paddingHorizontal: 20,
-        fontSize: 16,
-        color: '#f05a5b',
-        height: 44,
-        marginBottom: 20,
-        borderRadius: 2
-    },
-
-    labelError: {
-        fontWeight: 'bold',
-        color: '#f05a5b'
-    },
-
     information: {
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: 'bold',
-        marginTop: 10,
-        marginBottom: 8,
+        marginTop: 50,
         textAlign: 'center'
-    },
-
-    label: {
-        fontWeight: 'bold',
-        marginTop: 8
-    },
-
-    input: {
-        borderWidth: 1,
-        paddingHorizontal: 20,
-        fontSize: 16,
-        height: 44,
-        marginBottom: 20,
-        borderRadius: 2
     },
 
     button: {
@@ -180,6 +176,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 2,
+        marginTop: 30,
         marginBottom: 10
     },
 

@@ -6,7 +6,7 @@ import CreateUserStep2 from './pages/CreateUser/CreateUserStep2'
 import CreateUserStep3 from './pages/CreateUser/CreateUserStep3'
 import CreateUserStep4 from './pages/CreateUser/CreateUserStep4'
 import CreateUserStep5 from './pages/CreateUser/CreateUserStep5'
-import CreateUserEnd from './pages/CreateUser/CreateUserEnd'
+import CreateUserStepEnd from './pages/CreateUser/CreateUserStepEnd'
 import CreateCargo from './pages/CreateCargo/CreateCargo'
 
 const Routes = createAppContainer(
@@ -17,7 +17,7 @@ const Routes = createAppContainer(
         CreateUserStep3,
         CreateUserStep4,
         CreateUserStep5,
-        CreateUserEnd,
+        CreateUserStepEnd,
         CreateCargo
     })
 );

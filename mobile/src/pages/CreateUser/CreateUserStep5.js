@@ -16,7 +16,7 @@ export default function CreateUserStep5({ navigation }) {
         if (isValidForm()) {
             await AsyncStorage.setItem('senha', password)
 
-            navigation.navigate('CreateUserEnds');
+            navigation.navigate('CreateUserStepEnd');
         } else {
             Alert.alert('Por favor, preencha todos os dados corretamente!')
         }
@@ -44,7 +44,7 @@ export default function CreateUserStep5({ navigation }) {
     }
 
     function handleBack() {
-        navigation.navigate('CreateUserStep5')
+        navigation.navigate('CreateUserStep4')
     }
 
     return (
