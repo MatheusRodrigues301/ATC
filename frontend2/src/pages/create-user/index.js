@@ -1,6 +1,6 @@
 import React from 'react'
 import StepWizard from 'react-step-wizard'
-
+import Logo from '../../assets/logo1.png'
 
 //WIZARDA STEPS
 import Step1 from './step1'
@@ -30,14 +30,19 @@ export default function CreateUser({history}){
 
     return (
         <>
-        <StepWizard>
-            <Step1 login={() => returnToLogin()} addDetail={(key,value) => addDetail(key,value)} />
-            <Step2 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
-            <Step3 addDetail={(key,value) => addDetail(key,value)}/>
-            <Step4 addDetail={(key,value) => addDetail(key,value)}/>
-            <Step5 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
-            <Finish login={() => returnToLogin()}/>
-        </StepWizard>
+        <div className="container">
+            <img src={Logo} alt="Logo" className="logo" />
+            <section className="content">
+                <StepWizard>
+                    <Step1 login={() => returnToLogin()} addDetail={(key,value) => addDetail(key,value)} />
+                    <Step2 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
+                    <Step3 addDetail={(key,value) => addDetail(key,value)}/>
+                    <Step4 addDetail={(key,value) => addDetail(key,value)}/>
+                    <Step5 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
+                    <Finish login={() => returnToLogin()}/>
+                </StepWizard>
+            </section>
+        </div>
         </>
     )
 }
