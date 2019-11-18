@@ -3,10 +3,6 @@ import './home.css'
 import Logo from '../../assets/logo1.png'
 export default function Home({history}){
 
-    const redirectToCreate = () => {
-        history.push('/create-user')
-    }
-
     return(
         <>
         <div className="container">
@@ -19,8 +15,8 @@ export default function Home({history}){
                 <label>Senha *</label>
                 <input type="Password" id="senha" name="senha" />
                 <div className="btn-area">
-                    <button className="btn" type="button">Entrar</button>
-                    <button className="btn" type="button" onClick={() => redirectToCreate()}>Cadastre-se</button>
+                    <button className="btn" type="button" onClick={() => history.push('/dashboard')}>Entrar</button>
+                    <button className="btn" type="button" onClick={() => history.push('/create-user')}>Cadastre-se</button>
                 </div>
             </form>
         </section>
