@@ -9,15 +9,27 @@ export default function Step4(props){
         return confirmPassword === password
     }
 
+    const validPassword = () =>{
+        if(validator("password",password) && confirmPasswordValid)
+            return true
+        else
+            return false
+    }
+    
     const saveValues = (e) =>{
-        e.preventDefault()
-        props.addDetail('Password', password)
+        if(validPassword()){
+            e.preventDefault()
+            props.addDetail('Password', password)
+            return true
+        }
+        else
+            return false
     }
 
     const next = (e) =>
     {
-        saveValues(e)
-        props.nextStep()
+        if(saveValues(e))
+            props.nextStep()
     }
 
     const back = () =>
