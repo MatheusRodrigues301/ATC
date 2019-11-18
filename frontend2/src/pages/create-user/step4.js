@@ -42,7 +42,7 @@ export default function Step4(props){
             <form>
                 
                 <InputMask className={cpf !== '' && !validator("CPF",cpf) && 'error'} mask="999.999.999-99" placeholder="CPF" type="text" value={cpf} onChange={(e) => setCPF(e.target.value)}/>
-                <input placeholder="CNH" maxLength="11" type="number" value={cnh} onChange={(e) => setCNH(e.target.value)}/>
+                <InputMask className={cnh !== '' && !validator("CNH",cnh) && 'error'} placeholder="CNH" type="number" value={cnh} onChange={(e) => setCNH(e.target.value)}/>
                 <div className="btn-area">
                     <button className="btn" type="button" onClick={() => back()}>Anterior</button>
                     <button className="btn" type="button" onClick={(e) => next(e)}>Proximo</button>

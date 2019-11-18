@@ -28,7 +28,7 @@ export default function Step4(props){
     return (
         <>
             <p>{`Vamos criar uma senha, ${props.nome()}`}</p>
-
+            <span>Sua senha deve conter letras maiusculas, minusculas e numeros</span>
             <form>
                 
                 <input className={password !== '' && !validator("password",password) && "error"} placeholder="Senha" type="password"  value={password} onChange={(e) => setPassword(e.target.value)}/>
