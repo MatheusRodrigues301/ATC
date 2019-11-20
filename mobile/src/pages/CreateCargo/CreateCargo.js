@@ -80,7 +80,7 @@ export default function CreateCargo({ navigation }) {
             <Image source={logo} style={styles.img} />
 
             <View style={styles.form}>
-                <Text style={styles.information}>Cadastre as informações abaixo</Text>
+                <Text style={styles.information}>Nova Carga</Text>
 
                 <Text
                     style={[styles.label, (cargoType !== "" && !isValid('cargoType') ? styles.labelError : '')]}
@@ -90,9 +90,9 @@ export default function CreateCargo({ navigation }) {
                 <Picker
                     selectedValue={cargoType}
                     onValueChange={(itemValue, itemIndex) => setCargoType(itemValue)}>
-                    <Picker.Item label="Moveis" value="Movel" />
-                    <Picker.Item label="Peças" value="'Peça'" />
-                    <Picker.Item label="Outros" value="Outros" />
+                    <Picker.Item label="Pequena" value="Pequena" />
+                    <Picker.Item label="Média" value="Média" />
+                    <Picker.Item label="Grande" value="Grande" />
                 </Picker>
 
                 <Text

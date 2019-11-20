@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { AsyncStorage, SafeAreaView, View, TouchableOpacity, Image, Text, TextInput, StyleSheet } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons';
+import ActionButton from 'react-native-action-button';
 
+import DriversList from '../components/driversList'
 import logo from '../assets/logo.png'
 
 export default function Home({ navigation }) {
@@ -20,31 +23,32 @@ export default function Home({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <Image source={logo} style={styles.img} />
-
-            <View style={styles.form}>
-                <Text style={styles.information}>Bem vindo!</Text>
-                <TouchableOpacity style={styles.button} onPress={handleCargo}>
-                    <Text style={styles.buttonText}>Cadastrar nova carga</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={handleList}>
-                    <Text style={styles.buttonText}>Visualizar meus orçamentos</Text>
-                </TouchableOpacity>
-            </View>
+            <DriversList />
+            <ActionButton buttonColor="#f05a5b">
+                <ActionButton.Item buttonColor='#1abc9c' title="Cadastrar Carga" onPress={handleCargo}>
+                    <Icon name="md-create" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+                <ActionButton.Item buttonColor='#3498db' title="Visualizar Orçamentos" onPress={handleCargo}>
+                    <Icon name="md-clipboard" style={styles.actionButtonIcon} />
+                </ActionButton.Item>
+            </ActionButton>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        flexDirection: 'column',
+        // justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        backgroundColor: '#FFF'
     },
 
-    form: {
-        alignSelf: 'stretch',
-        paddingHorizontal: 20,
-        margin: 20,
-        borderRadius: 10,
-        backgroundColor: '#FFF'
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
     },
 
     information: {
@@ -74,6 +78,19 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         alignSelf: 'center',
         marginTop: 30
+    },
+
+    circleButton: {
+        backgroundColor: '#f05a5b',
+        borderRadius: 50,
+        flexWrap: 'nowrap',
+        position: 'absolute',
+        width: 50,
+        height: 50,
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        bottom: 30
     },
 
     button: {
