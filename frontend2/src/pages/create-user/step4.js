@@ -16,8 +16,8 @@ export default function Step4(props){
     const saveValues = (e) =>{
         if(valideForm()){
             e.preventDefault()
-            props.addDetail("CPF", cpf)
-            props.addDetail("CNH", cnh)
+            props.addDetail("documentNumberCpf", cpf)
+            props.addDetail("documentNumberCNH", cnh)
             return true
         }
         else
