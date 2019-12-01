@@ -28,7 +28,7 @@ export default function CreateUserStep2({ navigation }) {
 
             navigation.navigate('CreateUserStep3');
         } else {
-            Alert.alert('Por favor, preencha todos os dados corretamente!')
+            Alert.alert('Erro!', 'Por favor, preencha todos os dados corretamente!')
         }
     }
 

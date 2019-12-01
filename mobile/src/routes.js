@@ -8,7 +8,10 @@ import CreateUserStep3 from './pages/CreateUser/CreateUserStep3'
 import CreateUserStep4 from './pages/CreateUser/CreateUserStep4'
 import CreateUserStep5 from './pages/CreateUser/CreateUserStep5'
 import CreateUserStepEnd from './pages/CreateUser/CreateUserStepEnd'
-import CreateCargo from './pages/CreateCargo/CreateCargo'
+import CreateCargo from './pages/Cargo/CreateCargo'
+import EditCargo from './pages/Cargo/EditCargo'
+import Estimate from './pages/Estimate/Estimate'
+import MyCargos from './pages/myCargos/myCargos'
 
 const Routes = createAppContainer(
     createSwitchNavigator({
@@ -20,7 +23,10 @@ const Routes = createAppContainer(
         CreateUserStep4,
         CreateUserStep5,
         CreateUserStepEnd,
-        CreateCargo
+        CreateCargo,
+        EditCargo,
+        Estimate,
+        MyCargos
     })
 );
 

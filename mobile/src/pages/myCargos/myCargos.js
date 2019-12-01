@@ -3,36 +3,29 @@ import { AsyncStorage, SafeAreaView, View, TouchableOpacity, Image, Text, TextIn
 import Icon from 'react-native-vector-icons/Ionicons';
 import ActionButton from 'react-native-action-button';
 
-import DriversList from '../components/driversList'
-import logo from '../assets/logo.png'
+import CargoList from '../../components/cargoList'
+import logo from '../../assets/logo.png'
 
-export default function Home({ navigation }) {
-    const [selectedId, setSelectId] = useState('')
+export default function MyCargos({ navigation }) {
+    // const [selectedId, setSelectId] = useState('')
 
     useEffect(() => {
 
     }, [])
 
-    function handleCargo() {
-        navigation.navigate('CreateCargo')
-    }
-
-    function handleList() {
-        navigation.navigate('MyCargos')
+    function handleBack() {
+        navigation.navigate('Home')
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <Image source={logo} style={styles.img} />
-            <DriversList />
-            <ActionButton buttonColor="#f05a5b">
-                <ActionButton.Item buttonColor='#1abc9c' title="Cadastrar Carga" onPress={handleCargo}>
-                    <Icon name="md-create" style={styles.actionButtonIcon} />
-                </ActionButton.Item>
-                <ActionButton.Item buttonColor='#3498db' title="Visualizar Minhas Cargas" onPress={handleList}>
-                    <Icon name="md-clipboard" style={styles.actionButtonIcon} />
-                </ActionButton.Item>
-            </ActionButton>
+            <View style={styles.top}>
+                <TouchableOpacity onPress={() => handleBack()}>
+                    <Icon name="md-arrow-back" size={25} />
+                </TouchableOpacity>
+                <Image source={logo} style={styles.img} />
+            </View>
+            <CargoList />
         </SafeAreaView>
     )
 }
@@ -42,13 +35,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         paddingHorizontal: 20,
+        alignSelf: 'center',
         backgroundColor: '#FFF'
-    },
-
-    actionButtonIcon: {
-        fontSize: 20,
-        height: 22,
-        color: 'white',
     },
 
     information: {
@@ -57,6 +45,12 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 8,
         textAlign: 'center'
+    },
+
+    top: {
+        flexDirection: 'row',
+        alignSelf: 'center',
+        marginTop: 30
     },
 
     label: {
@@ -76,8 +70,6 @@ const styles = StyleSheet.create({
     img: {
         height: 60,
         resizeMode: 'contain',
-        alignSelf: 'center',
-        marginTop: 30
     },
 
     circleButton: {

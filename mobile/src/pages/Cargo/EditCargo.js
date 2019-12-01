@@ -3,8 +3,10 @@ import { AsyncStorage, Alert, Picker, SafeAreaView, View, TouchableOpacity, Imag
 import { TextInputMask } from 'react-native-masked-text'
 
 import logo from '../../assets/logo.png'
+import Cargos from '../../cargoMock';
 
-export default function CreateCargo({ navigation }) {
+export default function EditCargo({ navigation }) {
+    const id = navigation.getParam('id')
     const [user, setUser] = useState('')
     const [cargoType, setCargoType] = useState('')
     const [startDate, setStartDate] = useState('')
@@ -18,6 +20,16 @@ export default function CreateCargo({ navigation }) {
             if (storagedUser)
                 setUser(storagedUser)
         })
+
+        let cargo = Cargos.find(item => item._id === id);
+        if (cargo !== null && cargo !== "") {
+            setCargoType(cargo.cargoType)
+            setStartDate(cargo.startDate)
+            setExtimatedDate(cargo.extimatedDate)
+            setHomeAddress(cargo.homeAddress)
+            setFinalAddress(cargo.finalAddress)
+            setObs(cargo.obs)
+        }
     }, [])
 
     async function handleSubmit() {
@@ -41,9 +53,9 @@ export default function CreateCargo({ navigation }) {
             //         console.log("TCL: handleSubmit -> error", error)
             //     })
 
-            navigation.navigate('Login')
+            navigation.navigate('MyCargos')
         } else {
-            Alert.alert('Por favor, preencha todos os dados corretamente!')
+            Alert.alert('Erro!', 'Por favor, preencha todos os dados corretamente!')
         }
     }
 
@@ -67,12 +79,12 @@ export default function CreateCargo({ navigation }) {
             (startDate !== "" && isValid('startDate')) &&
             (extimatedDate !== "" && isValid('extimatedDate')) &&
             homeAddress !== "" &&
-            (finalAddress !== "")
+            finalAddress !== ""
         )
     }
 
     function handleBack() {
-        navigation.navigate('Home')
+        navigation.navigate('MyCargos')
     }
 
     return (
@@ -83,7 +95,7 @@ export default function CreateCargo({ navigation }) {
                 <Text style={styles.information}>Nova Carga</Text>
 
                 <Text
-                    style={[styles.label, (cargoType !== "" && !isValid('cargoType') ? styles.labelError : '')]}
+                    style={[styles.label, (cargoType === "" && !isValid('cargoType') ? styles.labelError : '')]}
                 >
                     Tipo da carga *
                 </Text>
@@ -138,38 +150,38 @@ export default function CreateCargo({ navigation }) {
                 )}
 
                 <Text
-                    style={[styles.label, (homeAddress !== "" && !isValid('homeAddress') ? styles.labelError : '')]}
+                    style={[styles.label, (homeAddress === "" ? styles.labelError : '')]}
                 >
                     Endereço de saída *
                 </Text>
                 <TextInput
-                    style={[styles.input, (homeAddress !== "" ? styles.inputError : '')]}
+                    style={[styles.input, (homeAddress === "" ? styles.inputError : '')]}
                     placeholder="Ex: Rua Antônio de souza"
                     value={homeAddress}
                     onChangeText={setHomeAddress}
                     autoCapitalize="words"
                     autoCorrect={false}
                 />
-                {homeAddress !== "" && (
+                {homeAddress === "" && (
                     <Text style={styles.errorMessage}>
                         Campo inválido
                     </Text>
                 )}
 
                 <Text
-                    style={[styles.label, (finalAddress !== "" ? styles.labelError : '')]}
+                    style={[styles.label, (finalAddress === "" ? styles.labelError : '')]}
                 >
                     Endereço de destino *
                 </Text>
                 <TextInput
-                    style={[styles.input, (finalAddress !== "" ? styles.inputError : '')]}
+                    style={[styles.input, (finalAddress === "" ? styles.inputError : '')]}
                     placeholder="Ex: Av. Lisboa"
                     value={finalAddress}
                     onChangeText={setFinalAddress}
                     autoCapitalize="words"
                     autoCorrect={false}
                 />
-                {finalAddress !== "" && !isValid('finalAddress') && (
+                {finalAddress === "" && (
                     <Text style={styles.errorMessage}>
                         Campo inválido
                     </Text>

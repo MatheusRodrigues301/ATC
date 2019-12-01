@@ -22,7 +22,7 @@ export default function CreateUserStep3({ navigation }) {
 
             navigation.navigate('CreateUserStep4');
         } else {
-            Alert.alert('Por favor, selecione seu gênero!')
+            Alert.alert('Erro!', 'Por favor, selecione seu gênero!')
         }
     }
 

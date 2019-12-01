@@ -3,10 +3,10 @@ import { withNavigation } from 'react-navigation'
 import { StyleSheet, Image, View, SafeAreaView, Text, FlatList, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Drivers from '../driversMock'
+import Cargos from '../cargoMock';
 // import api from '../services/api'
 
-function DriversList({ navigation }) {
+function CargoList({ navigation }) {
     // const [spots, setSpots] = useState([])
 
     useEffect(() => {
@@ -14,24 +14,26 @@ function DriversList({ navigation }) {
     }, [])
 
     function handleNavigate(id) {
-        navigation.navigate('Estimate', { id })
+        navigation.navigate('EditCargo', { id })
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Motoristas disponiveis</Text>
+            <Text style={styles.title}>Minhas Cargas</Text>
             <FlatList style={styles.list}
-                data={Drivers}
-                keyExtractor={driver => driver._id}
+                data={Cargos}
+                keyExtractor={cargos => cargos._id}
                 renderItem={({ item }) => (
                     <View style={styles.listItem}>
-                        <Icon name="md-contact" style={styles.icon} size={50} />
                         <Text style={styles.name}>Nome: {item.name}</Text>
-                        <Text style={styles.cargoType}>Tipo de transporte: Cargas {item.cargoType}</Text>
-                        <Text style={styles.vehicleModel}>Tipo de veiculo: {item.vehicleModel}</Text>
-                        <Text style={styles.phoneNumber}>Celular: {item.phoneNumber}</Text>
+                        <Text style={styles.cargoType}>Tipo de Carga: {item.cargoType}</Text>
+                        <Text style={styles.startDate}>Data de retirada: {item.startDate}</Text>
+                        <Text style={styles.extimatedDate}>Data estimada de entraga: {item.extimatedDate}</Text>
+                        <Text style={styles.homeAddress}>Endereço retirada: {item.homeAddress}</Text>
+                        <Text style={styles.finalAddress}>Endereço entrega: {item.finalAddress}</Text>
+                        <Text style={styles.obs}>Obs: {item.obs}</Text>
                         <TouchableOpacity style={styles.button} onPress={() => handleNavigate(item._id)}>
-                            <Text style={styles.buttonText}>Solicitar Orçamento</Text>
+                            <Text style={styles.buttonText}>Editar</Text>
                         </TouchableOpacity>
                     </View>
                 )} />
@@ -78,13 +80,31 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
 
-    vehicleModel: {
+    startDate: {
         fontSize: 16,
         color: '#333',
         marginTop: 5,
     },
 
-    phoneNumber: {
+    extimatedDate: {
+        fontSize: 16,
+        color: '#333',
+        marginTop: 5,
+    },
+
+    homeAddress: {
+        fontSize: 16,
+        color: '#333',
+        marginTop: 5,
+    },
+
+    finalAddress: {
+        fontSize: 16,
+        color: '#333',
+        marginTop: 5,
+    },
+
+    obs: {
         fontSize: 16,
         color: '#333',
         marginTop: 5,
@@ -107,4 +127,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default withNavigation(DriversList)
+export default withNavigation(CargoList)
