@@ -6,33 +6,37 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Cargos from '../cargoMock';
 // import api from '../services/api'
 
-function CargoList({ navigation }) {
+function EstimatesList({ navigation }) {
+    const [myCargos, setMyCargos] = useState('');
+
 
     useEffect(() => {
-
+        setMyCargos(Cargos);
     }, [])
 
-    function handleNavigate(id) {
-        navigation.navigate('EditCargo', { id })
+    function remove(id) {
+        setMyCargos(myCargos.find(item => item._id !== id))
     }
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Minhas Cargas</Text>
+            <Text style={styles.title}>Meus Orçamentos</Text>
             <FlatList style={styles.list}
-                data={Cargos}
+                data={myCargos}
                 keyExtractor={cargos => cargos._id}
                 renderItem={({ item }) => (
                     <View style={styles.listItem}>
+                        <Text>Status:
+                            <Text style={item.status === "PENDENTE" ? styles.pending : (item.status === "RECUSADO" ? styles.refused : styles.accepted)}> {item.status}</Text>
+                        </Text>
                         <Text style={styles.name}>Nome: {item.name}</Text>
-                        <Text style={styles.cargoType}>Tipo de Carga: {item.cargoType}</Text>
                         <Text style={styles.startDate}>Data de retirada: {item.startDate}</Text>
                         <Text style={styles.extimatedDate}>Data estimada de entraga: {item.extimatedDate}</Text>
                         <Text style={styles.homeAddress}>Endereço retirada: {item.homeAddress}</Text>
                         <Text style={styles.finalAddress}>Endereço entrega: {item.finalAddress}</Text>
                         <Text style={styles.obs}>Obs: {item.obs}</Text>
-                        <TouchableOpacity style={styles.button} onPress={() => handleNavigate(item._id)}>
-                            <Text style={styles.buttonText}>Editar</Text>
+                        <TouchableOpacity style={styles.button} onPress={() => remove(item._id)}>
+                            <Text style={styles.buttonText}>Remover</Text>
                         </TouchableOpacity>
                     </View>
                 )} />
@@ -109,6 +113,21 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
 
+    pending: {
+        color: '#e0d910',
+        fontWeight: 'bold'
+    },
+
+    refused: {
+        color: '#f05a5b',
+        fontWeight: 'bold'
+    },
+
+    accepted: {
+        color: '#35fc03',
+        fontWeight: 'bold'
+    },
+
     button: {
         height: 32,
         backgroundColor: '#f05a5b',
@@ -126,4 +145,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default withNavigation(CargoList)
+export default withNavigation(EstimatesList)

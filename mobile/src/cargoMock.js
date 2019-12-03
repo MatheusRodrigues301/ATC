@@ -7,7 +7,8 @@ const cargos = [
         extimatedDate: '27/11/2019',
         homeAddress: 'Rua do Cruzeiro, Redinha, Natal',
         finalAddress: 'Rua Simões Neto, Imbiribeira, Recife',
-        obs: 'Precisa de proteção'
+        obs: 'Precisa de proteção',
+        status: 'PENDENTE'
     },
     {
         _id: '00002',
@@ -17,7 +18,8 @@ const cargos = [
         extimatedDate: '27/11/2019',
         homeAddress: 'Rua do Cruzeiro, Redinha, Natal',
         finalAddress: 'Rua Simões Neto, Imbiribeira, Recife',
-        obs: 'Precisa de proteção no vidro'
+        obs: 'Precisa de proteção no vidro',
+        status: 'RECUSADO'
     },
 ]
 

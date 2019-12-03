@@ -12,6 +12,7 @@ import CreateCargo from './pages/Cargo/CreateCargo'
 import EditCargo from './pages/Cargo/EditCargo'
 import Estimate from './pages/Estimate/Estimate'
 import MyCargos from './pages/myCargos/myCargos'
+import MyEstimates from './pages/myEstimates/myEstimates'
 
 const Routes = createAppContainer(
     createSwitchNavigator({
@@ -26,7 +27,8 @@ const Routes = createAppContainer(
         CreateCargo,
         EditCargo,
         Estimate,
-        MyCargos
+        MyCargos,
+        MyEstimates
     })
 );
 
