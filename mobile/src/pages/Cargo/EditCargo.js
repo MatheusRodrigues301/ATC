@@ -201,7 +201,7 @@ export default function EditCargo({ navigation }) {
                 />
 
                 <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>Cadastrar</Text>
+                    <Text style={styles.buttonText}>Editar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button} onPress={handleBack}>

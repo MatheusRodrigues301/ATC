@@ -7,20 +7,23 @@ import Cargos from '../cargoMock';
 // import api from '../services/api'
 
 function EstimatesList({ navigation }) {
-    const [myCargos, setMyCargos] = useState('');
-
+    const [myCargos, setMyCargos] = useState(Cargos);
 
     useEffect(() => {
-        setMyCargos(Cargos);
+        // setMyCargos(Cargos);
     }, [])
 
     function remove(id) {
-        setMyCargos(myCargos.find(item => item._id !== id))
+        setMyCargos(myCargos.filter(item => item._id !== id))
     }
 
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.title}>Meus Orçamentos</Text>
+            {myCargos.length === 0 && (
+                <Text style={styles.title}>Você não possui orçamentos</Text>
+            )}
+
             <FlatList style={styles.list}
                 data={myCargos}
                 keyExtractor={cargos => cargos._id}

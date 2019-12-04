@@ -21,7 +21,7 @@ export default function Home({ navigation }) {
         navigation.navigate('MyCargos')
     }
 
-    function handleList() {
+    function handleEstimateList() {
         navigation.navigate('MyEstimates')
     }
 
@@ -36,7 +36,7 @@ export default function Home({ navigation }) {
                 <ActionButton.Item buttonColor='#3498db' title="Visualizar Minhas Cargas" onPress={handleList}>
                     <Icon name="md-cube" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
-                <ActionButton.Item buttonColor='#a4a832' title="Visualizar Meus Orçamentos" onPress={handleList}>
+                <ActionButton.Item buttonColor='#a4a832' title="Visualizar Meus Orçamentos" onPress={handleEstimateList}>
                     <Icon name="md-clipboard" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
             </ActionButton>

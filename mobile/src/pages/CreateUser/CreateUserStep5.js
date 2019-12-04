@@ -25,7 +25,7 @@ export default function CreateUserStep5({ navigation }) {
     function isValid(item) {
         switch (item) {
             case 'password':
-                return password.length >= 6;
+                return /[A-Z]+[a-z]+[0-9]+_?/g.test(password)
                 break;
             case 'confirmPassword':
                 return confirmPassword === password;
