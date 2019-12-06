@@ -4,9 +4,8 @@ const DriverUser = require('../models/DriverUser');
 module.exports = {
     //Criação de motorista
     async create(req, res) {
-        const { filename } = req.file
         const { name, email, password, birthDate, gender, phoneNumber, documentNumberCpf, documentNumberCNH } = req.body;
-
+        console.log(req.body)
         let driverUser = await User.findOne({ documentNumberCpf });
 
         if (!driverUser) {
@@ -19,7 +18,6 @@ module.exports = {
                 phoneNumber,
                 documentNumberCpf,
                 documentNumberCNH,
-                selfie: filename
             })
         }
 

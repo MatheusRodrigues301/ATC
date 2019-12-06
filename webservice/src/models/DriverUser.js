@@ -9,7 +9,6 @@ const DriverUserSchema = new mongoose.Schema({
     phoneNumber: String,
     documentNumberCpf: String,
     documentNumberCNH: String,
-    selfie: String,
     vehicles: []
 })
 
