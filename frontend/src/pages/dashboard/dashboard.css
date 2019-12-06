@@ -36,9 +36,10 @@ div#driverInformation{
 ul{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     
 }
-ul > li{
+ul > li{ 
     margin-top:20px;
     margin-left: 20px;
     background-color: white;
@@ -72,4 +73,15 @@ ul > li > div > button{
 }
 ul > li > div > button.reject{
     background-color: #f05a5b !important; 
+}
+
+.accepted{
+    display: none !important;
+}
+.resp{
+    color: green;
+}
+
+.hideItem{
+    display: none !important; 
 }

@@ -28,7 +28,6 @@ export default function (props) {
         loadEstimates()
     }, [])
 
-
     return (
         <>
             <nav>
@@ -42,12 +41,14 @@ export default function (props) {
                 <ul>
                     {
                         estimates.map(item => (
-                            <li key={item._id}>
+
+                            <li key={item._id} className={item.accepted === false? "hideItem":""}>
                                 <span>Descrição: {item.serviceDescription}</span>
                                 <strong>Preço: {item.price}</strong>
                                 <div>
-                                    <button>Accept</button>
-                                    <button className="reject">Reject</button>
+                                    <span className="resp">{item.accepted? "Aceitado!":""}</span>
+                                    <button className={item.accepted? "accepted":""} onClick={() => props.history.push(`/dashboard/${item._id}/select-car`)}>Accept</button>
+                                    <button className={item.accepted? "accepted reject":"reject"} onClick={() => props.history.push(`/dashboard/${item._id}/reject`)}>Reject</button>
                                 </div>
                             </li>
                         ))

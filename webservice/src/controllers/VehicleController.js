@@ -21,5 +21,12 @@ module.exports = {
         }
         
         return res.json(vehicle);
+    },
+
+    async show(req, res){
+        const {user_id} = req.headers
+        console.log(user_id)
+        let vehicle = await Vehicle.find({ownerUser:user_id})
+        res.json(vehicle)
     }
 };

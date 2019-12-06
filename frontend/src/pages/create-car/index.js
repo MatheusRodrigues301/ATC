@@ -24,6 +24,7 @@ export default function CreateCar(props) {
             color,
             ownerUser: localStorage.getItem('user_id')
         }).then(response => console.log(response.data))
+        props.history.push('/dashboard')
     }
 
     const exit = () =>{

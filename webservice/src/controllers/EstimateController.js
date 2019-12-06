@@ -39,13 +39,13 @@ module.exports = {
 
     //Aceita orçamento
     async update(req, res) {
-        const { estimate_id } = req.params;
-
-        const estimate = await Estimate.findById(estimate_id).populate('DriverUser').populate('User').populate('CargoInfos');
+        const { estimate_id,status } = req.body;
+        console.log(estimate_id)
+        const estimate = await Estimate.findById(estimate_id)
         if (!estimate)
             return res.status(400).json({ error: 'Estimate not exists.' });
 
-        estimate.accepted = true;
+        estimate.accepted = status;
 
         await estimate.save();
 

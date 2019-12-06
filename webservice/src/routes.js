@@ -32,6 +32,7 @@ routes.post('/driver-user', DriverUserController.create);
 
 //Vehile
 routes.post('/vehicle', VehicleController.create);
+routes.get('/vehicle', VehicleController.show);
 
 //CargoInfos
 routes.get('/cargo-infos', CargoInfosController.show);
@@ -39,6 +40,6 @@ routes.post('/cargo-infos', CargoInfosController.create);
 
 //Estimate
 routes.post('/cargo-infos/:cargo_id/estimate', EstimateController.create);
-routes.put('/cargo-infos/:cargo_id/estimate', EstimateController.update);
+routes.post('/cargo-infos/estimate', EstimateController.update);
 
 module.exports = routes;
