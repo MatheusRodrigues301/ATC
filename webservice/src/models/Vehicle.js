@@ -9,7 +9,7 @@ const VehicleSchema = new mongoose.Schema({
     serviceType: String,
     ownerUser: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'DriverUser'
     }
 })
 

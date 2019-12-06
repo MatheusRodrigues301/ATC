@@ -5,8 +5,8 @@ module.exports = {
     async create(req, res) {
         //Criação de usuário
         const { plateNumber, model, carBrand, year, color, serviceType, ownerUser } = req.body;
-
-        let vehicle = await User.findOne({ plateNumber });
+        console.log(req.body)
+        let vehicle = await Vehicle.findOne({ plateNumber });
 
         if (!vehicle) {
             vehicle = await Vehicle.create({
@@ -19,7 +19,7 @@ module.exports = {
                 ownerUser
             })
         }
-
+        
         return res.json(vehicle);
     }
 };

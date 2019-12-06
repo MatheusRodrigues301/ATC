@@ -19,7 +19,7 @@ export default function Step4(props){
     const saveValues = (e) =>{
         if(validPassword()){
             e.preventDefault()
-            props.addDetail('Password', password)
+            props.addDetail('password', password)
             return true
         }
         else

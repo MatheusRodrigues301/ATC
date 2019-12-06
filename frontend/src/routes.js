@@ -3,11 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 import Home from './pages/home'
 import CreateUser from './pages/create-user'
-
-const isLogged = () => {
-    let user = localStorage.getItem("user");
-    return user !== null;
-}
+import Dashboard from './pages/dashboard'
+import CreateCar from './pages/create-car'
 
 export default function Routes() {
     return (
@@ -15,6 +12,8 @@ export default function Routes() {
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/create-user" component={CreateUser} />
+                <Route path="/create-car" component={CreateCar} />
+                <Route path="/dashboard" component={Dashboard} />
             </Switch>
         </BrowserRouter>
     )

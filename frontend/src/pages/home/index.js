@@ -1,65 +1,45 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
+import './home.css'
+import Logo from '../../assets/logo1.png'
 import api from '../../services/api'
-import './style.css'
-import Grid from '@material-ui/core/Grid';
 
-export default ({ history }) => {
+export default function Home({history}){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleSubmit = async (e) => {
-        e.preventDafault();
-
+    const login =  async (e) =>{
+        e.preventDefault()
         await api.post('/login-driver-user', {
             email,
             password
+        }).then((user) => {
+            console.log(user.data)
+            history.push('/dashboard')
+            localStorage.setItem('user_name',user.data.name)
+            localStorage.setItem('user_id',user.data._id)   
         })
-            .then(({ data }) => {
-                localStorage.setItem('user', data._id)
-                history.push('/dashboard')
-            })
-            .catch(error => {
-                console.log("TCL: error", error)
-            })
+        .catch((err) => console.log(err))
+        
     }
 
-    const redirectToCreate = () => {
-        history.push('/create-user');
-    }
-
-    return (
+    return(
         <>
-            <p>
-                Obtenha <strong>transportes</strong> e ganhe mais <strong>facilidade</strong> e <strong>agilidade</strong> no seu gerencimento
-            </p>
-
-            <form onSubmit={e => handleSubmit(e)}>
-                <label htmlFor="email">E-mail *</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Digite seu e-mail"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <label htmlFor="senha">Senha *</label>
-                <input
-                    type="password"
-                    id="senha"
-                    placeholder="Digite sua senha"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-                <Grid container spacing={3}>
-                    <Grid item xs={6}>
-                        <button className="btn" onClick={e => redirectToCreate(e)}>Cadastre-se</button>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <button className="btn" type="submit">Entrar</button>
-                    </Grid>
-                </Grid>
+        <div className="container">
+        <img src={Logo} alt="Logo" className="logo" />
+        <section className="content">
+            <p>Obtenha <strong>transportes</strong> e ganhe mais <strong>facilidade</strong> e <strong>agilidade</strong> no seu gerencimento</p>
+            <form id="login" className="login">
+                <label>Email *</label>
+                <input type="Email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}/>   
+                <label>Senha *</label>
+                <input type="Password" id="senha" name="senha" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <div className="btn-area">
+                    <button className="btn" type="button" onClick={(e) => login(e)}>Entrar</button>
+                    <button className="btn" type="button" onClick={() => history.push('/create-user')}>Cadastre-se</button>
+                </div>
             </form>
-            <br />
+        </section>
+        </div>
         </>
     )
 }

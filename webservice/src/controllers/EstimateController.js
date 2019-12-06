@@ -12,7 +12,7 @@ module.exports = {
         const { serviceDescription, price, extimatedTime, userRequest } = req.body;
 
         const driverUser = await DriverUser.findById(user_id);
-        if (!driverUser)
+       /* if (!driverUser)
             return res.status(400).json({ error: 'DriverUser not exists.' });
 
         const user = await User.findById(userRequest);
@@ -22,7 +22,7 @@ module.exports = {
         const cargoInfos = await CargoInfos.findById(cargo_id);
         if (!cargoInfos)
             return res.status(400).json({ error: 'CargoInfos not exists.' });
-
+        */
         const estimate = await Estimate.create({
             serviceDescription,
             price,

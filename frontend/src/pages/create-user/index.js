@@ -1,42 +1,67 @@
-import React, { useState } from 'react'
-import './style.css'
-import StepWizard from 'react-step-wizard';
-import Step1 from './step-1'
-import Step2 from './step-2'
-import Step3 from './step-3'
-import Step4 from './step-4'
+import React from 'react'
+import StepWizard from 'react-step-wizard'
+import Logo from '../../assets/logo1.png'
 
-export default ({ history }) => {
-    let state = {}
+//WIZARDA STEPS
+import Step1 from './step1'
+import Step2 from './step2'
+import Step3 from './step3'
+import Step4 from './step4'
+import Step5 from './step5'
+import Step6 from './step6'
+import Finish from './finish'
 
-    const changeState = (key, val) => {
-        state[key] = val;
+import api from '../../services/api'
+
+import ('./create-user.css')
+
+
+export default function CreateUser({history}){
+    let personDetail = {}
+    
+    const returnToLogin = () => {
+        history.push('/')
+    }
+    
+    const addDetail = (key, value) =>{
+        personDetail[key] = value;
+    }
+    
+    const personName = () => {
+        return personDetail.nome
     }
 
-    const redirectToLogin = () => {
-        history.push('/')
+    const handlesubmit = () =>{
+        personDetail['name'] = personDetail['nome'] + " " + personDetail['sobrenome'] 
+       api.post('/driver-user',{
+            name: personDetail['name'],
+            email: personDetail['email'],
+            password: personDetail['password'],
+            birthDate: personDetail['birthDay'],
+            gender: personDetail['gender'],
+            phoneNumber: personDetail['phoneNumber'],
+            documentNumberCpf: personDetail['documentNumberCpf'],
+            documentNumberCNH: personDetail['documentNumberCNH']
+        }).then(res => console.log(res))
+        returnToLogin()
     }
 
     return (
         <>
-            <StepWizard>
-                <Step1
-                    changeState={(key, val) => changeState(key, val)}
-                    redirectToLogin={() => redirectToLogin()}
-                />
-                <Step2
-                    changeState={(key, val) => changeState(key, val)}
-                    redirectToLogin={() => redirectToLogin()}
-                />
-                <Step3
-                    changeState={(key, val) => changeState(key, val)}
-                    redirectToLogin={() => redirectToLogin()}
-                />
-                <Step4
-                    changeState={(key, val) => changeState(key, val)}
-                    redirectToLogin={() => redirectToLogin()}
-                />
-            </StepWizard>
+        <div className="container">
+            <img src={Logo} alt="Logo" className="logo" />
+            <section className="content">
+                <StepWizard>
+                    <Step1 login={() => returnToLogin()} addDetail={(key,value) => addDetail(key,value)} />
+                    <Step2 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
+                    <Step3 addDetail={(key,value) => addDetail(key,value)}/>
+                    <Step4 addDetail={(key,value) => addDetail(key,value)}/>
+                    <Step6 addDetail={(key,value) => addDetail(key,value)}/>
+                    <Step5 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
+                    <Finish login={() => returnToLogin()} submit={(e) => handlesubmit(e)}/>
+                </StepWizard>
+            </section>
+        </div>
         </>
     )
 }

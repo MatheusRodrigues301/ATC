@@ -6,7 +6,7 @@ module.exports = {
     async create(req, res) {
         const { name, email, password, birthDate, gender, phoneNumber, documentNumberCpf, documentNumberCNH } = req.body;
         console.log(req.body)
-        let driverUser = await User.findOne({ documentNumberCpf });
+        let driverUser = await DriverUser.findOne({ documentNumberCpf });
 
         if (!driverUser) {
             driverUser = await DriverUser.create({
@@ -19,8 +19,9 @@ module.exports = {
                 documentNumberCpf,
                 documentNumberCNH,
             })
+            console.log(driverUser)
         }
-
+        
         return res.json(driverUser);
     }
 };
