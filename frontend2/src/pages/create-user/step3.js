@@ -5,7 +5,7 @@ export default function Step3(props){
 
     const saveValues = (e) =>{
         e.preventDefault()
-        props.addDetail("genero",genero)
+        props.addDetail("gender",genero)
     }
 
     const next = (e) =>

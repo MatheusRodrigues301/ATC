@@ -9,7 +9,7 @@ export default function Step4(props){
             <div className="finish">
                 <p>Tudo pronto :)</p>
                 <img src={Logo}  />
-                <button className="btn" onClick={() => props.login()}>Finalizar</button>
+                <button className="btn" onClick={() => props.submit()}>Finalizar</button>
             </div>
         </>
     )

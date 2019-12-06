@@ -25,7 +25,7 @@ routes.get('/dashboard', DashboardController.show);
 routes.get('/dashboard-driver', DashboardDriverController.show);
 
 //User
-routes.post('/user', upload.single('selfie'), UserController.create);
+routes.post('/user', UserController.create);
 
 //Driver
 routes.post('/driver-user', upload.single('selfie'), DriverUserController.create);

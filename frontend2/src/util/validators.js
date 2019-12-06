@@ -11,6 +11,6 @@ export default function validation(key, value){
         case 'CNH':
             return /^\d{11}$/g.test(value)
         case 'password':
-            return /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%!^&*]).{6,20}$/g.test(value)
+            return /[A-Z]+[a-z]+[0-9]_?/g.test(value)
     }
 }

@@ -8,7 +8,11 @@ import Step2 from './step2'
 import Step3 from './step3'
 import Step4 from './step4'
 import Step5 from './step5'
+import Step6 from './step6'
 import Finish from './finish'
+
+import api from '../../services/api'
+
 import ('./create-user.css')
 
 
@@ -21,11 +25,25 @@ export default function CreateUser({history}){
     
     const addDetail = (key, value) =>{
         personDetail[key] = value;
-        console.log(personDetail)
     }
     
     const personName = () => {
         return personDetail.nome
+    }
+
+    const handlesubmit = () =>{
+        personDetail['name'] = personDetail['nome'] + " " + personDetail['sobrenome'] 
+       api.post('/driver-user',{
+            name: personDetail['name'],
+            email: personDetail['email'],
+            password: personDetail['password'],
+            birthDate: personDetail['birthDay'],
+            gender: personDetail['gender'],
+            phoneNumber: personDetail['phoneNumber'],
+            documentNumberCpf: personDetail['documentNumberCpf'],
+            documentNumberCNH: personDetail['documentNumberCNH']
+        }).then(res => console.log(res))
+        returnToLogin()
     }
 
     return (
@@ -38,8 +56,9 @@ export default function CreateUser({history}){
                     <Step2 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
                     <Step3 addDetail={(key,value) => addDetail(key,value)}/>
                     <Step4 addDetail={(key,value) => addDetail(key,value)}/>
+                    <Step6 addDetail={(key,value) => addDetail(key,value)}/>
                     <Step5 addDetail={(key,value) => addDetail(key,value)} nome={() => personName()}/>
-                    <Finish login={() => returnToLogin()}/>
+                    <Finish login={() => returnToLogin()} submit={(e) => handlesubmit(e)}/>
                 </StepWizard>
             </section>
         </div>
